@@ -14,10 +14,10 @@ variables:
   value: '$(Build.BuildId)'
 
 stages:
-- stage: Build and Deploy
+- stage: Build-and-Deploy
   displayName: Build and Deploy to ACR
   jobs:
-  - job: Build and Deploy
+  - job: Build-and-Deploy
     displayName: Build and Deploy
     pool:
       vmImage: 'ubuntu-latest'
@@ -29,3 +29,4 @@ stages:
         docker build -t $(acrName)/whey-protein-comparer:$(tag) . -f $(Build.SourcesDirectory)/Dockerfile
         docker push $(acrName)/whey-protein-comparer:$(tag)
       displayName: 'Tag and Push Docker image'
+
