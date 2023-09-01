@@ -14,29 +14,11 @@ variables:
   value: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Build and Deploy
+  displayName: Build and Deploy to ACR
   jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-    - script: |
-        echo $(tag)
-
-- stage: Deploy
-  displayName: Deploy to ACR
-  jobs:
-  - job: Deploy
-    displayName: Deploy
+  - job: Build and Deploy
+    displayName: Build and Deploy
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -44,6 +26,6 @@ stages:
         echo $(acrPassword) | docker login $(acrName) -u $(acrUsername) --password-stdin
       displayName: 'Login to ACR'
     - script: |
-        docker tag $(acrName)/whey-protein-comparer:$(tag) $(acrName)/whey-protein-comparer:$(tag)
+        docker build -t $(acrName)/whey-protein-comparer:$(tag) . -f $(Build.SourcesDirectory)/Dockerfile
         docker push $(acrName)/whey-protein-comparer:$(tag)
       displayName: 'Tag and Push Docker image'
