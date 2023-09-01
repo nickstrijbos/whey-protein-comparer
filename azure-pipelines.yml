@@ -17,7 +17,7 @@ stages:
 - stage: BuildAndDeploy
   displayName: Build and Deploy to ACR
   jobs:
-  - job: Build-and-Deploy
+  - job: BuildAndDeployjlf
     displayName: Build and Deploy
     pool:
       vmImage: 'ubuntu-latest'
