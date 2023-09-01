@@ -12,6 +12,7 @@ variables:
   tag: '$(Build.BuildId)'
   # Define your ACR details
   acrName: 'strijboscr.azurecr.io'
+- group: whey-protein-comparer-variable-group
 
 stages:
 - stage: Build
