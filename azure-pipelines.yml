@@ -14,7 +14,7 @@ variables:
   value: '$(Build.BuildId)'
 
 stages:
-- stage: Build_and_deploy
+- stage: BuildAndDeploy
   displayName: Build and Deploy to ACR
   jobs:
   - job: Build-and-Deploy
