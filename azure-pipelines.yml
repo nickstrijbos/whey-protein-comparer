@@ -11,7 +11,7 @@ resources:
 variables:
 - group: whey-protein-comparer-variable-group
 - name: tag
-  value: '1.0.0'
+  value: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -29,6 +29,8 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+    - script: |
+        echo $(tag)
 
 - stage: Deploy
   displayName: Deploy to ACR
@@ -41,8 +43,7 @@ stages:
     - script: |
         echo $(acrPassword) | docker login $(acrName) -u $(acrUsername) --password-stdin
       displayName: 'Login to ACR'
-    
     - script: |
-        docker tag $(acrName)/whey-protein-comparer:$(tag) $(acrName)/whey-protein-comparer:1.0.1
-        docker push $(acrName)/whey-protein-comparer:1.0.1
+        docker tag $(acrName)/whey-protein-comparer:$(tag) $(acrName)/whey-protein-comparer:$(tag)
+        docker push $(acrName)/whey-protein-comparer:$(tag)
       displayName: 'Tag and Push Docker image'
