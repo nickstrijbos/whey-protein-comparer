@@ -12,7 +12,6 @@ variables:
   tag: '$(Build.BuildId)'
   # Define your ACR details
   acrName: 'strijboscr.azurecr.io'
-- group: whey-protein-comparer-variable-group
 
 stages:
 - stage: Build
@@ -48,3 +47,7 @@ stages:
       inputs:
         command: push
         repository: '$(acrName)/whey-protein-comparer:$(tag)' # Replace with your image name and tag
+
+# Reference the variable group
+variables:
+- group: whey-protein-comparer-variable-group
