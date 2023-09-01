@@ -11,7 +11,7 @@ resources:
 variables:
 - group: whey-protein-comparer-variable-group
 - name: tag
-  value: '$(BuildId)'
+  value: '1.0.0'
 
 stages:
 - stage: Build
